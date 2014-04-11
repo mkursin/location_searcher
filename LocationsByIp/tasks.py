@@ -1,16 +1,7 @@
-#-*- coding: utf-8 -*-
-from celery import Celery
+# coding=utf-8
 
 
-app = Celery('tasks', broker='redis://localhost')
-
-
-@app.task
 def getGeoData(ip):
-
-    """Получить город по ip-адресу (адрес предается как строка).
-    Возвращает словарь с элементами-строками city, region, district, lat, lng
-    """
 
     import httplib
     import re
@@ -44,6 +35,13 @@ def getGeoData(ip):
         .firstChild.nodeValue
 
     return {'city': city, 'region': region, 'district': district, 'lat': lat, 'lng': lng}
+
 a = getGeoData('91.215.190.136')
 for key in sorted(a.iterkeys()):
     print "%s: %s" % (key, a[key])
+
+from LocationsByIp.models import LocationIp
+b = LocationIp(a)
+b.save()
+
+

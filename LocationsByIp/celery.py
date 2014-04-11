@@ -2,10 +2,10 @@ from __future__ import absolute_import
 
 from celery import Celery
 
-app = Celery('GeoIp',
+app = Celery('LocationsByIp',
              broker='amqp://',
              backend='amqp://',
-             include=['GeoIp.tasks'])
+             include=['LocationsByIp.tasks'])
 
 # Optional configuration, see the application user guide.
 app.conf.update(

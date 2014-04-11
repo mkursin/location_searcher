@@ -1,4 +1,5 @@
 # coding=utf-8
+
 """
 Django settings for location project.
 
@@ -12,13 +13,17 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+#GEOIP_PATH = ("/usr/local/lib/python2.7/dist-packages/django/contrib/gis/geoip", 'geoip')
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f^@*w2scsui0k)ci5xdi87urh6)w_x9z!c)zr+-*pay9$u&y28'
+
+
+SECRET_KEY='f^@*w2scsui0k)ci5xdi87urh6)w_x9z!c)zr+-*pay9$u&y28'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,7 +58,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'location',
-    'GeoIp',
+    'LocationsByIp',
     "djcelery",
 
 )
@@ -68,6 +73,7 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 
 )
+
 
 ROOT_URLCONF = 'location.urls'
 
