@@ -1,5 +1,5 @@
 """
-WSGI config for request project.
+WSGI config for location_searcher project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -8,8 +8,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "location.settings")
-os.environ["CELERY_LOADER"] = "django"
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "location_searcher.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

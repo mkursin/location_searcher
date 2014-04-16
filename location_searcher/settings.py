@@ -1,7 +1,5 @@
-# coding=utf-8
-
 """
-Django settings for location project.
+Django settings for location_searcher project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -13,39 +11,21 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-#GEOIP_PATH = ("/usr/local/lib/python2.7/dist-packages/django/contrib/gis/geoip", 'geoip')
-
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-
-SECRET_KEY='f^@*w2scsui0k)ci5xdi87urh6)w_x9z!c)zr+-*pay9$u&y28'
+SECRET_KEY = 'yr7zp!02z^w(it)9qa2jvb6klrn4d-3qnz5dbz2i)i86yvlo-#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CELERY_REDIS_HOST = '127.0.0.1'
-CELERY_REDIS_PORT = 6379
-CELERY_REDIS_DB = 0
-CELERY_RESULT_BACKEND = 'redis'
-BROKER_URL = 'redis://localhost:6379/0'
-
-REDIS_CONNECT_RETRY = True
-CELERY_IGNORE_RESULT = False
-CELERY_SEND_EVENTS = True
-CELERY_TASK_RESULT_EXPIRES = 60
-
-
-import djcelery
-djcelery.setup_loader()
 
 # Application definition
 
@@ -56,11 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
-    'location',
-    'LocationsByIp',
-    "djcelery",
-
+    'djcelery',
+    'kombu.transport.django',
+    'searcher',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,33 +48,39 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-
 )
 
+BROKER_URL = 'django://'
 
-ROOT_URLCONF = 'location.urls'
+ROOT_URLCONF = 'location_searcher.urls'
 
-WSGI_APPLICATION = 'location.wsgi.application'
+WSGI_APPLICATION = 'location_searcher.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'NAME': 'locations',
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'locations',
         'USER': 'root',
         'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
